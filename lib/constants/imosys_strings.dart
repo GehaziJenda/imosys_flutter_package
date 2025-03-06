@@ -1,4 +1,8 @@
 class ImosysStrings {
+  //dialog defaults strings
+  static const String ok = "OK";
+  static const String yes = "Yes";
+  static const String no = "No";
   //error messages
   static const String somethingWentWrong = "Something went wrong. Please try again later.";
   static const String noInternetConnection =

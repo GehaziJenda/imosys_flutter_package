@@ -16,6 +16,9 @@ class ImosysConfig {
   final Color? defaultBorderColor;
   final Color? defaultTextFieldFillColor;
   final Color? cursorColor;
+  final Color? dialogMessageColor;
+  final Color? dialogButtonColor;
+  final Color? circularProgressColor;
 
   ImosysConfig({
     required this.defaultFontSize,
@@ -29,7 +32,10 @@ class ImosysConfig {
     this.defaultFontFamily,
     this.defaultBorderColor,
     this.defaultTextFieldFillColor,
-    this.cursorColor
+    this.cursorColor,
+    this.dialogMessageColor,
+    this.dialogButtonColor,
+    this.circularProgressColor,
   });
 
   /// Method to set base URL
