@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:imosys_flutter_package/imosys_flutter_package.dart';
+import 'package:imosys_flutter_package/widgets/imosys_button.dart';
 
 void main() {
-  
   ImosysConfig.setBaseUrl("");
 
   runApp(
@@ -10,14 +10,16 @@ void main() {
       config: ImosysConfig(
         defaultFontSize: 16,
         defaultFontColor: Colors.black,
-        primaryColor: Colors.amber,
+        primaryColor: Colors.orange,
         defaultHorizontalPadding: 20,
         cursorColor: Colors.blue,
         defaultBorderColor: Colors.black,
         defaultVerticalPadding: 16,
         defaultHorizontalMargin: 20,
         defaultVerticalMargin: 26,
-        defaultContainerRadius: 20,
+        defaultContainerRadius: 14,
+        primaryButtonBackgroundColor: Colors.orange,
+        primaryButtonTextColor: Colors.white,
       ),
       child: const MyApp(),
     ),
@@ -68,9 +70,9 @@ class _MyHomePageState extends State<MyHomePage> {
               hint: "Full name",
               controller: controller,
               hasBorder: true,
-              fillColor: Colors.grey.withOpacity(0.2),
+              //fillColor: Colors.grey.withOpacity(0.2),
               hintFontColor: Colors.grey,
-              hasFill: false,
+              hasFill: true,
             ),
             SizedBox(
               height: config.defaultVerticalMargin,
@@ -85,6 +87,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 dontShowText = !dontShowText;
                 setState(() {});
               },
+            ),
+            SizedBox(
+              height: config.defaultVerticalMargin,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ImosysButton(
+                  text: "Logout",
+                  onTap: () {},
+                ),
+              ],
             )
           ],
         ),

@@ -19,6 +19,11 @@ class ImosysConfig {
   final Color? dialogMessageColor;
   final Color? dialogButtonColor;
   final Color? circularProgressColor;
+  final Color? primaryButtonBackgroundColor;
+  final double? primaryButtonDefaultWidth;
+  final Color? primaryButtonTextColor;
+  final double? primaryButtonFontSize;
+  final bool? primaryButtonHasElevation;
 
   ImosysConfig({
     required this.defaultFontSize,
@@ -36,6 +41,11 @@ class ImosysConfig {
     this.dialogMessageColor,
     this.dialogButtonColor,
     this.circularProgressColor,
+    this.primaryButtonBackgroundColor,
+    this.primaryButtonDefaultWidth,
+    this.primaryButtonTextColor,
+    this.primaryButtonFontSize,
+    this.primaryButtonHasElevation,
   });
 
   /// Method to set base URL

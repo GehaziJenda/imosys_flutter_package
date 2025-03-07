@@ -37,6 +37,7 @@ class ImosysTextField extends StatelessWidget {
   const ImosysTextField(
       {super.key,
       required this.hint,
+      required this.controller,
       this.label,
       this.toggleObscure,
       this.dontShowText,
@@ -45,7 +46,6 @@ class ImosysTextField extends StatelessWidget {
       this.autoCorrect,
       this.prefixText,
       this.cursorColor,
-      required this.controller,
       this.inputType,
       this.maxLength,
       this.maxLines,
@@ -72,7 +72,6 @@ class ImosysTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     //configuration
     final config = ImosysAppWrapper.of(context);
-
     return SizedBox(
       width: width ?? MediaQuery.of(context).size.width,
       child: Column(
