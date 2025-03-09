@@ -54,6 +54,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final controller = TextEditingController();
+  final genderController = TextEditingController();
   bool dontShowText = true;
   @override
   Widget build(BuildContext context) {
@@ -61,45 +62,80 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: config.defaultHorizontalPadding,
-            vertical: config.defaultVerticalPadding),
+          horizontal: config.defaultHorizontalPadding,
+          vertical: config.defaultVerticalPadding,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ImosysTextField(
-              hint: "Full name",
-              controller: controller,
-              hasBorder: true,
-              //fillColor: Colors.grey.withOpacity(0.2),
-              hintFontColor: Colors.grey,
-              hasFill: true,
-            ),
-            SizedBox(
-              height: config.defaultVerticalMargin,
-            ),
-            ImosysTextField(
-              hint: "Password",
-              controller: controller,
-              hintFontColor: Colors.grey,
-              inputType: TextInputType.visiblePassword,
-              dontShowText: dontShowText,
-              toggleObscure: () {
-                dontShowText = !dontShowText;
-                setState(() {});
-              },
-            ),
-            SizedBox(
-              height: config.defaultVerticalMargin,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ImosysButton(
                   text: "Logout",
-                  onTap: () {},
+                  elevation: 2,
+                  onTap: () {
+                    //perform some action
+                  },
                 ),
               ],
-            )
+            ),
+            // ImosysTextField(
+            //   hint: "Full name",
+            //   controller: controller,
+            //   hasBorder: true,
+            //   //fillColor: Colors.grey.withOpacity(0.2),
+            //   hintFontColor: Colors.grey,
+            //   //hasFill: true,
+            // ),
+            // SizedBox(
+            //   height: config.defaultVerticalMargin,
+            // ),
+            // ImosysTextField(
+            //   hint: "Password",
+            //   controller: controller,
+            //   hintFontColor: Colors.grey,
+            //   inputType: TextInputType.visiblePassword,
+            //   dontShowText: dontShowText,
+            //   toggleObscure: () {
+            //     dontShowText = !dontShowText;
+            //     setState(() {});
+            //   },
+            // ),
+            // SizedBox(
+            //   height: config.defaultVerticalMargin,
+            // ),
+            // ImosysTextField(
+            //   hint: "Gender",
+            //   width: 150,
+            //   suffixIcon: Icon(Icons.arrow_drop_down),
+            //   controller: genderController,
+            //   hintFontColor: Colors.grey,
+            //   onChange: (value) {
+            //     if (value != null) {
+            //       setState(() {
+            //         genderController.text = value;
+            //       });
+            //     }
+            //   },
+            //   items: const ["", "Male", "Female"],
+            // ),
+            // SizedBox(
+            //   height: config.defaultVerticalMargin,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     ImosysButton(
+            //       text: "Logout",
+            //       hasBorder: true,
+            //       borderColor: config.primaryColor,
+            //       color: Colors.transparent,
+            //       textColor: Colors.black,
+            //       onTap: () {},
+            //     ),
+            //   ],
+            // )
           ],
         ),
       ),

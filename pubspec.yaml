@@ -8,11 +8,12 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  extended_image: 9.1.0
+  dropdown_button2: ^2.3.9 #for drop downs
+  extended_image: 9.1.0 #for loading images
   flutter:
     sdk: flutter
-  http: 1.2.2
-  http_parser: 4.0.2
+  http: 1.2.2 #for API calls
+  http_parser: 4.0.2 #for multipart uploads
 
 dev_dependencies:
   flutter_test:

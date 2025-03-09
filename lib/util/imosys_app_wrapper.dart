@@ -15,6 +15,7 @@ class ImosysConfig {
   final String? defaultFontFamily;
   final Color? defaultBorderColor;
   final Color? defaultTextFieldFillColor;
+  final Color? defaultHintColor;
   final Color? cursorColor;
   final Color? dialogMessageColor;
   final Color? dialogButtonColor;
@@ -37,6 +38,7 @@ class ImosysConfig {
     this.defaultFontFamily,
     this.defaultBorderColor,
     this.defaultTextFieldFillColor,
+    this.defaultHintColor,
     this.cursorColor,
     this.dialogMessageColor,
     this.dialogButtonColor,
