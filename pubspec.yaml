@@ -1,7 +1,7 @@
 name: imosys_flutter_package
 description: "A flutter package for iMoSyS"
 version: 0.0.1
-homepage:
+homepage: "https://github.com/GehaziJenda/imosys_flutter_package"
 
 environment:
   sdk: ^3.5.3
