@@ -5,3 +5,7 @@
 ## 0.0.2
 
 * Added validation to ImosysTextField
+
+## 0.0.3
+
+* Added Text Styles for headers and body

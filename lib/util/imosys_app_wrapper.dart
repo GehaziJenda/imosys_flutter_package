@@ -26,6 +26,14 @@ class ImosysConfig {
   final double? primaryButtonFontSize;
   final bool? primaryButtonHasElevation;
 
+  /// TextStyles
+  final TextStyle? h1TextStyle;
+  final TextStyle? h2TextStyle;
+  final TextStyle? h3TextStyle;
+  final TextStyle? bodyTextStyle;
+  final TextStyle? smallTextStyle;
+  final TextStyle? extraSmallTextStyle;
+
   ImosysConfig({
     required this.defaultFontSize,
     required this.defaultFontColor,
@@ -48,6 +56,12 @@ class ImosysConfig {
     this.primaryButtonTextColor,
     this.primaryButtonFontSize,
     this.primaryButtonHasElevation,
+    this.h1TextStyle,
+    this.h2TextStyle,
+    this.h3TextStyle,
+    this.bodyTextStyle,
+    this.smallTextStyle,
+    this.extraSmallTextStyle,
   });
 
   /// Method to set base URL
