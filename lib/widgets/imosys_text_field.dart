@@ -13,6 +13,7 @@ class ImosysTextField extends StatelessWidget {
   final TextInputType? inputType;
   final VoidCallback? toggleObscure;
   final Function(String?)? onChange;
+  final String? Function(String?)? validator;
   final int? maxLength;
   final int? maxLines;
   final int? minLines;
@@ -73,6 +74,7 @@ class ImosysTextField extends StatelessWidget {
       this.errorBorderColor,
       this.focusedBorderColor,
       this.hasFill = false,
+      this.validator,
       this.fillColor});
 
   @override
@@ -119,116 +121,242 @@ class ImosysTextField extends StatelessWidget {
   }
 
   Widget textField(ImosysConfig config) {
-    return TextField(
-      onTap: onTap != null
-          ? () {
-              onTap?.call();
-            }
-          : null,
-      controller: controller,
-      maxLength: maxLength,
-      maxLines: maxLines ?? 1,
-      minLines: minLines,
-      cursorColor: cursorColor ?? config.cursorColor ?? config.primaryColor,
-      autocorrect: autoCorrect ?? true,
-      readOnly: onTap != null,
-      keyboardType: inputType,
-      textCapitalization: textCapitalization ?? TextCapitalization.none,
-      obscureText: dontShowText ?? false,
-      textInputAction: textInputAction ?? TextInputAction.done,
-      onChanged: onChange,
-      style: TextStyle(
-          fontFamily: fontFamily ?? config.defaultFontFamily,
-          fontSize: fontSize ?? config.defaultFontSize,
-          color: fontColor ?? config.defaultFontColor,
-          fontWeight: fontWeight),
-      decoration: InputDecoration(
-        counterText: "",
-        filled: hasFill,
-        prefixIcon: prefixIcon,
-        labelText: label,
-        hintText: hint,
-        suffixIcon: dontShowText != null
-            ? IconButton(
-                icon: Icon(
-                    dontShowText! ? Icons.visibility : Icons.visibility_off),
-                onPressed: () {
-                  if (toggleObscure != null) {
-                    toggleObscure!.call();
+    return validator != null
+        ? TextFormField(
+            validator: validator,
+            onTap: onTap != null
+                ? () {
+                    onTap?.call();
                   }
-                },
-              )
-            : suffixIcon,
-        prefix: prefixText != null
-            ? ImosysTextWidget(
-                text: "$prefixText ",
+                : null,
+            controller: controller,
+            maxLength: maxLength,
+            maxLines: maxLines ?? 1,
+            minLines: minLines,
+            cursorColor:
+                cursorColor ?? config.cursorColor ?? config.primaryColor,
+            autocorrect: autoCorrect ?? true,
+            readOnly: onTap != null,
+            keyboardType: inputType,
+            textCapitalization: textCapitalization ?? TextCapitalization.none,
+            obscureText: dontShowText ?? false,
+            textInputAction: textInputAction ?? TextInputAction.done,
+            onChanged: onChange,
+            style: TextStyle(
                 fontFamily: fontFamily ?? config.defaultFontFamily,
-                size: fontSize ?? config.defaultFontSize,
+                fontSize: fontSize ?? config.defaultFontSize,
                 color: fontColor ?? config.defaultFontColor,
-              )
-            : null,
-        hintStyle: TextStyle(
-          fontFamily: fontFamily ?? config.defaultFontFamily,
-          fontSize: fontSize ?? config.defaultFontSize,
-          color: hintFontColor ??
-              config.defaultHintColor ??
-              config.defaultFontColor,
-        ),
-        fillColor: hasFill
-            ? fillColor ?? config.defaultTextFieldFillColor ?? Colors.white
-            : null,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(borderRadius ?? config.defaultContainerRadius),
-          ),
-          borderSide: hasBorder
-              ? BorderSide(
-                  width: 1,
-                  color: borderColor ??
-                      config.defaultBorderColor ??
-                      config.primaryColor,
-                )
-              : BorderSide.none,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              borderRadius ?? config.defaultContainerRadius,
+                fontWeight: fontWeight),
+            decoration: InputDecoration(
+              counterText: "",
+              filled: hasFill,
+              prefixIcon: prefixIcon,
+              labelText: label,
+              hintText: hint,
+              suffixIcon: dontShowText != null
+                  ? IconButton(
+                      icon: Icon(dontShowText!
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      onPressed: () {
+                        if (toggleObscure != null) {
+                          toggleObscure!.call();
+                        }
+                      },
+                    )
+                  : suffixIcon,
+              prefix: prefixText != null
+                  ? ImosysTextWidget(
+                      text: "$prefixText ",
+                      fontFamily: fontFamily ?? config.defaultFontFamily,
+                      size: fontSize ?? config.defaultFontSize,
+                      color: fontColor ?? config.defaultFontColor,
+                    )
+                  : null,
+              hintStyle: TextStyle(
+                fontFamily: fontFamily ?? config.defaultFontFamily,
+                fontSize: fontSize ?? config.defaultFontSize,
+                color: hintFontColor ??
+                    config.defaultHintColor ??
+                    config.defaultFontColor,
+              ),
+              fillColor: hasFill
+                  ? fillColor ??
+                      config.defaultTextFieldFillColor ??
+                      Colors.white
+                  : null,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                      borderRadius ?? config.defaultContainerRadius),
+                ),
+                borderSide: hasBorder
+                    ? BorderSide(
+                        width: 1,
+                        color: borderColor ??
+                            config.defaultBorderColor ??
+                            config.primaryColor,
+                      )
+                    : BorderSide.none,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                    borderRadius ?? config.defaultContainerRadius,
+                  ),
+                ),
+                borderSide: hasBorder
+                    ? BorderSide(
+                        width: 1,
+                        color: borderColor ??
+                            config.defaultBorderColor ??
+                            config.primaryColor,
+                      )
+                    : BorderSide.none,
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                      borderRadius ?? config.defaultContainerRadius),
+                ),
+                borderSide: hasBorder
+                    ? BorderSide(
+                        width: 1,
+                        color: errorBorderColor ?? Colors.red,
+                      )
+                    : BorderSide.none,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                      borderRadius ?? config.defaultContainerRadius),
+                ),
+                borderSide: hasBorder
+                    ? BorderSide(
+                        width: 1,
+                        color: focusedBorderColor ?? config.primaryColor,
+                      )
+                    : BorderSide.none,
+              ),
             ),
-          ),
-          borderSide: hasBorder
-              ? BorderSide(
-                  width: 1,
-                  color: borderColor ??
-                      config.defaultBorderColor ??
-                      config.primaryColor,
-                )
-              : BorderSide.none,
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(borderRadius ?? config.defaultContainerRadius),
-          ),
-          borderSide: hasBorder
-              ? BorderSide(
-                  width: 1,
-                  color: errorBorderColor ?? Colors.red,
-                )
-              : BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(borderRadius ?? config.defaultContainerRadius),
-          ),
-          borderSide: hasBorder
-              ? BorderSide(
-                  width: 1,
-                  color: focusedBorderColor ?? config.primaryColor,
-                )
-              : BorderSide.none,
-        ),
-      ),
-    );
+          )
+        : TextField(
+            onTap: onTap != null
+                ? () {
+                    onTap?.call();
+                  }
+                : null,
+            controller: controller,
+            maxLength: maxLength,
+            maxLines: maxLines ?? 1,
+            minLines: minLines,
+            cursorColor:
+                cursorColor ?? config.cursorColor ?? config.primaryColor,
+            autocorrect: autoCorrect ?? true,
+            readOnly: onTap != null,
+            keyboardType: inputType,
+            textCapitalization: textCapitalization ?? TextCapitalization.none,
+            obscureText: dontShowText ?? false,
+            textInputAction: textInputAction ?? TextInputAction.done,
+            onChanged: onChange,
+            style: TextStyle(
+                fontFamily: fontFamily ?? config.defaultFontFamily,
+                fontSize: fontSize ?? config.defaultFontSize,
+                color: fontColor ?? config.defaultFontColor,
+                fontWeight: fontWeight),
+            decoration: InputDecoration(
+              counterText: "",
+              filled: hasFill,
+              prefixIcon: prefixIcon,
+              labelText: label,
+              hintText: hint,
+              suffixIcon: dontShowText != null
+                  ? IconButton(
+                      icon: Icon(dontShowText!
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      onPressed: () {
+                        if (toggleObscure != null) {
+                          toggleObscure!.call();
+                        }
+                      },
+                    )
+                  : suffixIcon,
+              prefix: prefixText != null
+                  ? ImosysTextWidget(
+                      text: "$prefixText ",
+                      fontFamily: fontFamily ?? config.defaultFontFamily,
+                      size: fontSize ?? config.defaultFontSize,
+                      color: fontColor ?? config.defaultFontColor,
+                    )
+                  : null,
+              hintStyle: TextStyle(
+                fontFamily: fontFamily ?? config.defaultFontFamily,
+                fontSize: fontSize ?? config.defaultFontSize,
+                color: hintFontColor ??
+                    config.defaultHintColor ??
+                    config.defaultFontColor,
+              ),
+              fillColor: hasFill
+                  ? fillColor ??
+                      config.defaultTextFieldFillColor ??
+                      Colors.white
+                  : null,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                      borderRadius ?? config.defaultContainerRadius),
+                ),
+                borderSide: hasBorder
+                    ? BorderSide(
+                        width: 1,
+                        color: borderColor ??
+                            config.defaultBorderColor ??
+                            config.primaryColor,
+                      )
+                    : BorderSide.none,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                    borderRadius ?? config.defaultContainerRadius,
+                  ),
+                ),
+                borderSide: hasBorder
+                    ? BorderSide(
+                        width: 1,
+                        color: borderColor ??
+                            config.defaultBorderColor ??
+                            config.primaryColor,
+                      )
+                    : BorderSide.none,
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                      borderRadius ?? config.defaultContainerRadius),
+                ),
+                borderSide: hasBorder
+                    ? BorderSide(
+                        width: 1,
+                        color: errorBorderColor ?? Colors.red,
+                      )
+                    : BorderSide.none,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                      borderRadius ?? config.defaultContainerRadius),
+                ),
+                borderSide: hasBorder
+                    ? BorderSide(
+                        width: 1,
+                        color: focusedBorderColor ?? config.primaryColor,
+                      )
+                    : BorderSide.none,
+              ),
+            ),
+          );
   }
 
   Widget containerTextField(ImosysConfig config) {

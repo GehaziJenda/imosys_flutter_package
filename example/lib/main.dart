@@ -68,26 +68,26 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ImosysButton(
-                  text: "Logout",
-                  elevation: 2,
-                  onTap: () {
-                    //perform some action
-                  },
-                ),
-              ],
-            ),
-            // ImosysTextField(
-            //   hint: "Full name",
-            //   controller: controller,
-            //   hasBorder: true,
-            //   //fillColor: Colors.grey.withOpacity(0.2),
-            //   hintFontColor: Colors.grey,
-            //   //hasFill: true,
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     ImosysButton(
+            //       text: "Logout",
+            //       elevation: 2,
+            //       onTap: () {
+            //         //perform some action
+            //       },
+            //     ),
+            //   ],
             // ),
+            ImosysTextField(
+              hint: "",
+              controller: controller,
+              hasBorder: true,
+              label: "Full name",
+              fillColor: Colors.grey.withAlpha(80),
+              hintFontColor: Colors.grey,
+            ),
             // SizedBox(
             //   height: config.defaultVerticalMargin,
             // ),
@@ -107,8 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // ),
             // ImosysTextField(
             //   hint: "Gender",
-            //   width: 150,
-            //   suffixIcon: Icon(Icons.arrow_drop_down),
+            //   suffixIcon: const Icon(Icons.arrow_drop_down),
             //   controller: genderController,
             //   hintFontColor: Colors.grey,
             //   onChange: (value) {
