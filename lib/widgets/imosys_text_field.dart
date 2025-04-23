@@ -149,8 +149,7 @@ class ImosysTextField extends StatelessWidget {
                 fontWeight: fontWeight),
             decoration: InputDecoration(
               counterText: "",
-              filled: hasFill ||
-                  (config.defaultTextFieldIsFilled),
+              filled: hasFill || config.defaultTextFieldIsFilled,
               prefixIcon: prefixIcon,
               labelText: label,
               hintText: hint,
@@ -181,15 +180,11 @@ class ImosysTextField extends StatelessWidget {
                     config.defaultHintColor ??
                     config.defaultFontColor,
               ),
-              fillColor: hasFill
+              fillColor: hasFill || config.defaultTextFieldIsFilled
                   ? fillColor ??
                       config.defaultTextFieldFillColor ??
                       Colors.white
-                  : config.defaultTextFieldIsFilled
-                      ? fillColor ??
-                          config.defaultTextFieldFillColor ??
-                          Colors.white
-                      : null,
+                  : null,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(
@@ -224,11 +219,10 @@ class ImosysTextField extends StatelessWidget {
                   Radius.circular(
                       borderRadius ?? config.defaultContainerRadius),
                 ),
-                borderSide:  BorderSide(
-                        width: 1,
-                        color: errorBorderColor ?? Colors.red,
-                      )
-                   ,
+                borderSide: BorderSide(
+                  width: 1,
+                  color: errorBorderColor ?? Colors.red,
+                ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(
@@ -236,9 +230,9 @@ class ImosysTextField extends StatelessWidget {
                       borderRadius ?? config.defaultContainerRadius),
                 ),
                 borderSide: BorderSide(
-                        width: 1,
-                        color: focusedBorderColor ?? config.primaryColor,
-                      ),
+                  width: 1,
+                  color: focusedBorderColor ?? config.primaryColor,
+                ),
               ),
             ),
           )
@@ -270,7 +264,7 @@ class ImosysTextField extends StatelessWidget {
                 fontWeight: fontWeight),
             decoration: InputDecoration(
               counterText: "",
-              filled: hasFill,
+              filled: hasFill || config.defaultTextFieldIsFilled,
               prefixIcon: prefixIcon,
               labelText: label,
               hintText: hint,
@@ -303,15 +297,11 @@ class ImosysTextField extends StatelessWidget {
                     config.defaultHintColor ??
                     config.defaultFontColor,
               ),
-              fillColor: hasFill
+              fillColor: hasFill || config.defaultTextFieldIsFilled
                   ? fillColor ??
                       config.defaultTextFieldFillColor ??
                       Colors.white
-                  : config.defaultTextFieldIsFilled
-                      ? fillColor ??
-                          config.defaultTextFieldFillColor ??
-                          Colors.white
-                      : null,
+                  : null,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(
@@ -347,9 +337,9 @@ class ImosysTextField extends StatelessWidget {
                       borderRadius ?? config.defaultContainerRadius),
                 ),
                 borderSide: BorderSide(
-                        width: 1,
-                        color: errorBorderColor ?? Colors.red,
-                      ),
+                  width: 1,
+                  color: errorBorderColor ?? Colors.red,
+                ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(
@@ -357,9 +347,9 @@ class ImosysTextField extends StatelessWidget {
                       borderRadius ?? config.defaultContainerRadius),
                 ),
                 borderSide: BorderSide(
-                        width: 1,
-                        color: focusedBorderColor ?? config.primaryColor,
-                      ),
+                  width: 1,
+                  color: focusedBorderColor ?? config.primaryColor,
+                ),
               ),
             ),
           );

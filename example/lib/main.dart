@@ -20,6 +20,9 @@ void main() {
         defaultContainerRadius: 14,
         primaryButtonBackgroundColor: Colors.orange,
         primaryButtonTextColor: Colors.white,
+        defaultTextFieldFillColor: Colors.grey,
+        defaultTextFieldIsFilled: true,
+        defaultTextFieldHasBorder: false,
       ),
       child: const MyApp(),
     ),
@@ -83,10 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ImosysTextField(
               hint: "",
               controller: controller,
-              hasBorder: true,
               label: "Full name",
-              fillColor: Colors.grey.withAlpha(80),
-              hintFontColor: Colors.grey,
+              fillColor: Colors.grey,
             ),
             // SizedBox(
             //   height: config.defaultVerticalMargin,

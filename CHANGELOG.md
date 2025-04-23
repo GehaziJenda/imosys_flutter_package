@@ -13,3 +13,7 @@
 ## 0.0.4
 
 * Added defaults for text fields
+
+## 0.0.5
+
+* Fixed defaults for text fields
