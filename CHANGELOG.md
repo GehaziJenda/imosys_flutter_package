@@ -9,3 +9,7 @@
 ## 0.0.3
 
 * Added Text Styles for headers and body
+
+## 0.0.4
+
+* Added defaults for text fields

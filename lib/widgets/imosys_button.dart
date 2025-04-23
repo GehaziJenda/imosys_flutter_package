@@ -106,7 +106,7 @@ class ImosysButton extends StatelessWidget {
                   ? ImosysTextWidget(
                       text: text,
                       size: textSize ?? config.primaryButtonFontSize,
-                      fontFamily: textFontFamily,
+                      fontFamily: textFontFamily ?? config.primaryButtonTextFontFamily,
                       fontWeight: textFontWeight,
                       color: textColor ?? config.primaryButtonTextColor)
                   : icon == null
@@ -120,7 +120,8 @@ class ImosysButton extends StatelessWidget {
                             ImosysTextWidget(
                                 text: text,
                                 size: textSize ?? config.primaryButtonFontSize,
-                                fontFamily: textFontFamily,
+                                fontFamily: textFontFamily ??
+                                    config.primaryButtonTextFontFamily,
                                 fontWeight: textFontWeight,
                                 color:
                                     textColor ?? config.primaryButtonTextColor)
@@ -140,7 +141,8 @@ class ImosysButton extends StatelessWidget {
                             ImosysTextWidget(
                               text: text,
                               size: textSize ?? config.primaryButtonFontSize,
-                              fontFamily: textFontFamily,
+                              fontFamily: textFontFamily ??
+                                  config.primaryButtonTextFontFamily,
                               fontWeight: textFontWeight,
                               color: textColor ?? config.primaryButtonTextColor,
                             ),
@@ -160,7 +162,8 @@ class ImosysButton extends StatelessWidget {
                     ? ImosysTextWidget(
                         text: text,
                         size: textSize ?? config.primaryButtonFontSize,
-                        fontFamily: textFontFamily,
+                        fontFamily: textFontFamily ??
+                            config.primaryButtonTextFontFamily,
                         fontWeight: textFontWeight,
                         color: textColor ?? config.primaryButtonTextColor,
                       )
@@ -175,7 +178,8 @@ class ImosysButton extends StatelessWidget {
                               ImosysTextWidget(
                                 text: text,
                                 size: textSize ?? config.primaryButtonFontSize,
-                                fontFamily: textFontFamily,
+                                fontFamily: textFontFamily ??
+                                    config.primaryButtonTextFontFamily,
                                 fontWeight: textFontWeight,
                                 color: textColor ??
                                     ImosysAppWrapper.of(context)
@@ -197,7 +201,8 @@ class ImosysButton extends StatelessWidget {
                               ImosysTextWidget(
                                 text: text,
                                 size: textSize ?? config.primaryButtonFontSize,
-                                fontFamily: textFontFamily,
+                                fontFamily: textFontFamily ??
+                                    config.primaryButtonTextFontFamily,
                                 fontWeight: textFontWeight,
                                 color:
                                     textColor ?? config.primaryButtonTextColor,

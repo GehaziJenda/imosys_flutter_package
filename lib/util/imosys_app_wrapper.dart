@@ -14,17 +14,25 @@ class ImosysConfig {
   final double defaultContainerRadius;
   final String? defaultFontFamily;
   final Color? defaultBorderColor;
+  //Text field
   final Color? defaultTextFieldFillColor;
   final Color? defaultHintColor;
   final Color? cursorColor;
+  final bool defaultTextFieldIsFilled;
+  final String? defaultTextFieldFontFamily;
+  final bool defaultTextFieldHasBorder;
+  //Dialogs
   final Color? dialogMessageColor;
   final Color? dialogButtonColor;
   final Color? circularProgressColor;
+
+  //Button
   final Color? primaryButtonBackgroundColor;
   final double? primaryButtonDefaultWidth;
   final Color? primaryButtonTextColor;
   final double? primaryButtonFontSize;
   final bool? primaryButtonHasElevation;
+  final String? primaryButtonTextFontFamily;
 
   /// TextStyles
   final TextStyle? h1TextStyle;
@@ -48,6 +56,9 @@ class ImosysConfig {
     this.defaultTextFieldFillColor,
     this.defaultHintColor,
     this.cursorColor,
+    this.defaultTextFieldIsFilled = false,
+    this.defaultTextFieldHasBorder = true,
+    this.defaultTextFieldFontFamily,
     this.dialogMessageColor,
     this.dialogButtonColor,
     this.circularProgressColor,
@@ -56,6 +67,7 @@ class ImosysConfig {
     this.primaryButtonTextColor,
     this.primaryButtonFontSize,
     this.primaryButtonHasElevation,
+    this.primaryButtonTextFontFamily,
     this.h1TextStyle,
     this.h2TextStyle,
     this.h3TextStyle,
