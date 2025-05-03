@@ -33,6 +33,7 @@ class ImosysConfig {
   final double? primaryButtonFontSize;
   final bool? primaryButtonHasElevation;
   final String? primaryButtonTextFontFamily;
+  final double? primaryButtonVerticalPadding;
 
   /// TextStyles
   final TextStyle? h1TextStyle;
@@ -68,6 +69,7 @@ class ImosysConfig {
     this.primaryButtonFontSize,
     this.primaryButtonHasElevation,
     this.primaryButtonTextFontFamily,
+    this.primaryButtonVerticalPadding,
     this.h1TextStyle,
     this.h2TextStyle,
     this.h3TextStyle,

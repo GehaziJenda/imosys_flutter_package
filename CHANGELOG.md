@@ -17,3 +17,7 @@
 ## 0.0.5
 
 * Fixed defaults for text fields
+
+## 0.0.6
+
+* Fixed vertical padding for button

@@ -19,25 +19,26 @@ class ImosysButton extends StatelessWidget {
   final double? textSize;
   final double? borderWidth;
   final double? elevation;
-  const ImosysButton({
-    super.key,
-    required this.text,
-    required this.onTap,
-    this.color,
-    this.textFontFamily,
-    this.textFontWeight,
-    this.textColor,
-    this.hasBorder,
-    this.borderColor,
-    this.image,
-    this.width,
-    this.icon,
-    this.iconColor,
-    this.borderRadius,
-    this.textSize,
-    this.borderWidth,
-    this.elevation,
-  });
+  final double? verticalPadding;
+  const ImosysButton(
+      {super.key,
+      required this.text,
+      required this.onTap,
+      this.color,
+      this.textFontFamily,
+      this.textFontWeight,
+      this.textColor,
+      this.hasBorder,
+      this.borderColor,
+      this.image,
+      this.width,
+      this.icon,
+      this.iconColor,
+      this.borderRadius,
+      this.textSize,
+      this.borderWidth,
+      this.elevation,
+      this.verticalPadding});
 
   @override
   Widget build(BuildContext context) {
@@ -100,13 +101,17 @@ class ImosysButton extends StatelessWidget {
   Widget buttonChild(ImosysConfig config, BuildContext context) {
     return width == null && config.primaryButtonDefaultWidth == null
         ? Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3.0),
+            padding: EdgeInsets.symmetric(
+                vertical: verticalPadding ??
+                    config.primaryButtonVerticalPadding ??
+                    3.0),
             child: Center(
               child: image == null && icon == null
                   ? ImosysTextWidget(
                       text: text,
                       size: textSize ?? config.primaryButtonFontSize,
-                      fontFamily: textFontFamily ?? config.primaryButtonTextFontFamily,
+                      fontFamily:
+                          textFontFamily ?? config.primaryButtonTextFontFamily,
                       fontWeight: textFontWeight,
                       color: textColor ?? config.primaryButtonTextColor)
                   : icon == null
@@ -156,7 +161,10 @@ class ImosysButton extends StatelessWidget {
                 MediaQuery.of(context).size.width * 0.5,
             //height: 25,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 3.0),
+              padding: EdgeInsets.symmetric(
+                  vertical: verticalPadding ??
+                      config.primaryButtonVerticalPadding ??
+                      3.0),
               child: Center(
                 child: image == null && icon == null
                     ? ImosysTextWidget(
