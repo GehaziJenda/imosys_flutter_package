@@ -126,12 +126,13 @@ class ImosysAPI {
     };
     try {
       log("-------$endpoint");
-      final response =
-          await http.post(Uri.parse("${ImosysConfig.baseUrl}$endpoint"),
-              headers: {
-                "Accept": "application/json",
-              },
-              body: body ?? {});
+      final response = await http.post(
+          Uri.parse("${ImosysConfig.baseUrl}$endpoint"),
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          body: body != null ? jsonEncode(body) : {});
       log(response.body);
       final result = jsonDecode(response.body);
       if (result["status"] != null && result["status"] == 1) {

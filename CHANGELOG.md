@@ -21,3 +21,7 @@
 ## 0.0.6
 
 * Fixed vertical padding for button
+
+## 0.0.7
+
+* Fixed ImosysAPI for post without authorization
