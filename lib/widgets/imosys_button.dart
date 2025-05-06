@@ -20,6 +20,9 @@ class ImosysButton extends StatelessWidget {
   final double? borderWidth;
   final double? elevation;
   final double? verticalPadding;
+  final double? imageHeight;
+  final double? imageWidth;
+  final double? iconSize;
   const ImosysButton(
       {super.key,
       required this.text,
@@ -38,7 +41,9 @@ class ImosysButton extends StatelessWidget {
       this.textSize,
       this.borderWidth,
       this.elevation,
-      this.verticalPadding});
+      this.verticalPadding,
+      this.imageHeight,
+      this.imageWidth, this.iconSize});
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +123,11 @@ class ImosysButton extends StatelessWidget {
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            ExtendedImage.asset(image!),
+                            ExtendedImage.asset(
+                              image!,
+                              height: imageHeight ?? 20,
+                              width: imageWidth,
+                            ),
                             const SizedBox(
                               width: 10,
                             ),
@@ -138,7 +147,7 @@ class ImosysButton extends StatelessWidget {
                             Icon(
                               icon,
                               color: iconColor,
-                              size: 20,
+                              size: iconSize ?? 20,
                             ),
                             const SizedBox(
                               width: 10,
@@ -179,7 +188,7 @@ class ImosysButton extends StatelessWidget {
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              ExtendedImage.asset(image!),
+                              ExtendedImage.asset(image!, height: imageHeight ?? 20, width: imageWidth,),
                               const SizedBox(
                                 width: 10,
                               ),
@@ -201,7 +210,7 @@ class ImosysButton extends StatelessWidget {
                               Icon(
                                 icon,
                                 color: iconColor,
-                                size: 20,
+                                size: iconSize ?? 20,
                               ),
                               const SizedBox(
                                 width: 10,

@@ -25,3 +25,7 @@
 ## 0.0.7
 
 * Fixed ImosysAPI for post without authorization
+
+## 0.0.8
+
+* Added image and icon sizes for ImosysButton
