@@ -395,7 +395,7 @@ class ImosysAPI {
 
   static Future<Map<String, dynamic>> postMultipartFileWithAuthorization(
     String endpoint, {
-    Map<String, String?>? fields,
+    Map<String, dynamic>? fields,
     Map<String, File?>? files,
   }) async {
     Map<String, dynamic> responseMap = {
@@ -483,7 +483,7 @@ class ImosysAPI {
 
   static Future<Map<String, dynamic>> putMultipartFileWithAuthorization(
     String endpoint, {
-    Map<String, String?>? fields,
+    Map<String, dynamic>? fields,
     Map<String, File?>? files,
   }) async {
     Map<String, dynamic> responseMap = {

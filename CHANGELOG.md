@@ -33,3 +33,7 @@
 ## 0.0.9
 
 * Added put with authorization in ImosysAPI
+
+## 0.0.10
+
+* Adjusted multipart to accept non string fields
