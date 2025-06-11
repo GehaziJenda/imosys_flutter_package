@@ -29,3 +29,7 @@
 ## 0.0.8
 
 * Added image and icon sizes for ImosysButton
+
+## 0.0.9
+
+* Added put with authorization in ImosysAPI
