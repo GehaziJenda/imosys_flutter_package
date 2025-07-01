@@ -37,3 +37,7 @@
 ## 0.0.10
 
 * Adjusted multipart to accept non string fields
+
+## 0.0.11
+
+* Added shadows to text

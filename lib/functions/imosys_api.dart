@@ -395,7 +395,7 @@ class ImosysAPI {
 
   static Future<Map<String, dynamic>> postMultipartFileWithAuthorization(
     String endpoint, {
-    Map<String, dynamic>? fields,
+    Map<String, String?>? fields,
     Map<String, File?>? files,
   }) async {
     Map<String, dynamic> responseMap = {
@@ -481,9 +481,9 @@ class ImosysAPI {
     }
   }
 
-  static Future<Map<String, dynamic>> putMultipartFileWithAuthorization(
+    static Future<Map<String, dynamic>> putMultipartFileWithAuthorization(
     String endpoint, {
-    Map<String, dynamic>? fields,
+    Map<String, String?>? fields,
     Map<String, File?>? files,
   }) async {
     Map<String, dynamic> responseMap = {
@@ -500,7 +500,7 @@ class ImosysAPI {
       final token = ImosysConfig.token;
       final uri = Uri.parse("${ImosysConfig.baseUrl}$endpoint");
 
-      final request = http.MultipartRequest('PUT', uri)
+      final request = http.MultipartRequest('POST', uri)
         ..headers.addAll({
           "Accept": "application/json",
           "Authorization": "Bearer $token",
