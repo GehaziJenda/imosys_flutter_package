@@ -27,8 +27,11 @@ class ImosysTextField extends StatelessWidget {
   final Color? hintFontColor;
   final Color? fontColor;
   final String? fontFamily;
+  final String? hintFontFamily;
   final FontWeight? fontWeight;
+  final FontWeight? hintFontWeight;
   final double? fontSize;
+  final double? hintFontSize;
   final Color? borderColor;
   final bool hasBorder;
   final Color? cursorColor;
@@ -38,6 +41,7 @@ class ImosysTextField extends StatelessWidget {
   final Color? fillColor;
   final TextInputAction? textInputAction;
   final bool hasFill;
+  final Function(String)? onSubmitted;
 
   const ImosysTextField(
       {super.key,
@@ -61,6 +65,9 @@ class ImosysTextField extends StatelessWidget {
       this.prefixIcon,
       this.suffixIcon,
       this.fontSize,
+      this.hintFontSize,
+      this.hintFontFamily,
+      this.hintFontWeight,
       this.textInputAction,
       this.onTap,
       this.width,
@@ -75,7 +82,9 @@ class ImosysTextField extends StatelessWidget {
       this.focusedBorderColor,
       this.hasFill = false,
       this.validator,
-      this.fillColor});
+      this.fillColor,
+      this.onSubmitted,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -165,6 +174,9 @@ class ImosysTextField extends StatelessWidget {
                 color: fontColor ?? config.defaultFontColor,
                 fontWeight: fontWeight),
             decoration: _inputDecoration(config),
+            onFieldSubmitted: (value) {
+              onSubmitted?.call(value);
+            },
           )
         : TextField(
             onTap: onTap != null
@@ -193,6 +205,9 @@ class ImosysTextField extends StatelessWidget {
                 color: fontColor ?? config.defaultFontColor,
                 fontWeight: fontWeight),
             decoration: _inputDecoration(config),
+            onSubmitted: (value) {
+              onSubmitted?.call(value);
+            },
           );
   }
 
@@ -229,7 +244,12 @@ class ImosysTextField extends StatelessWidget {
             color: controller.text.isEmpty
                 ? hintFontColor ?? config.defaultHintColor
                 : fontColor ?? config.defaultFontColor,
-            fontFamily: fontFamily ?? config.defaultTextFieldFontFamily,
+            fontFamily: controller.text.isEmpty
+                ? hintFontFamily ?? fontFamily ?? config.defaultTextFieldFontFamily
+                : fontFamily ?? config.defaultTextFieldFontFamily,
+            size: controller.text.isEmpty
+                ? hintFontSize ?? fontSize ?? config.defaultFontSize
+                : fontSize ?? config.defaultFontSize,
           ),
           if (suffixIcon != null) ...[suffixIcon!],
         ],
@@ -264,10 +284,11 @@ class ImosysTextField extends StatelessWidget {
             )
           : null,
       hintStyle: TextStyle(
-        fontFamily: fontFamily ?? config.defaultFontFamily,
-        fontSize: fontSize ?? config.defaultFontSize,
+        fontFamily: hintFontFamily ?? fontFamily ?? config.defaultFontFamily,
+        fontSize: hintFontSize ?? fontSize ?? config.defaultFontSize,
         color:
             hintFontColor ?? config.defaultHintColor ?? config.defaultFontColor,
+        fontWeight: hintFontWeight ?? fontWeight,
       ),
       fillColor: hasFill || config.defaultTextFieldIsFilled
           ? fillColor ?? config.defaultTextFieldFillColor ?? Colors.white

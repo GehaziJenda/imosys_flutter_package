@@ -41,3 +41,7 @@
 ## 0.0.11
 
 * Added shadows to text
+
+## 0.0.12
+
+* Added onSubmitted, hint font options on Text Fields
