@@ -86,8 +86,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ImosysTextField(
               hint: "",
               controller: controller,
-              label: "Full name",
+              label: "Full name test",
               fillColor: Colors.grey,
+              prefixText: "+265",
             ),
             // SizedBox(
             //   height: config.defaultVerticalMargin,

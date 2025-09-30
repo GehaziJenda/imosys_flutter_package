@@ -45,3 +45,7 @@
 ## 0.0.12
 
 * Added onSubmitted, hint font options on Text Fields
+
+## 0.0.13
+
+* Fixed exports
