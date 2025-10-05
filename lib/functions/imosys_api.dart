@@ -281,6 +281,62 @@ class ImosysAPI {
     }
   }
 
+    static Future<Map<String, dynamic>> patchWithAuthorization(
+      String endpoint, Map<String, dynamic>? body) async {
+    Map<String, dynamic> responseMap = {
+      'status': 0,
+      'data': null,
+      'msg': ImosysStrings.somethingWentWrong
+    };
+    try {
+      log("-------$endpoint");
+      //log(body.toString());
+      final token = ImosysConfig.token;
+      final response =
+          await http.patch(Uri.parse("${ImosysConfig.baseUrl}$endpoint"),
+              headers: {
+                "Accept": "application/json",
+                "Authorization": "Bearer $token",
+                "Content-Type": "application/json"
+              },
+              body: body != null ? jsonEncode(body) : {});
+      log("response body---------------");
+      log(response.body);
+      final result = jsonDecode(response.body);
+      if (result["status"] != null && result["status"] == 1) {
+        responseMap = {
+          "status": result["status"] ?? 0,
+          "data": response.body,
+          "msg": result["msg"] ?? ImosysStrings.somethingWentWrong
+        };
+      } else {
+        responseMap = {
+          "status": result["status"] ?? 0,
+          "data": null,
+          "msg": result["msg"] ?? ImosysStrings.somethingWentWrong
+        };
+      }
+      return responseMap;
+    } on SocketException catch (_) {
+      Map<String, dynamic> responseMap = {
+        'status': 0,
+        'data': null,
+        'msg': ImosysStrings.noInternetConnection
+      };
+      return responseMap;
+    } on TimeoutException catch (_) {
+      Map<String, dynamic> responseMap = {
+        'status': 0,
+        'data': null,
+        'msg': ImosysStrings.requestTimedOut
+      };
+      return responseMap;
+    } catch (e) {
+      log(e.toString());
+      return responseMap;
+    }
+  }
+
   static Future<Map<String, dynamic>> postWithAuthorizationWithObjectBody(
       String endpoint, dynamic body) async {
     Map<String, dynamic> responseMap = {
@@ -350,6 +406,62 @@ class ImosysAPI {
       final token = ImosysConfig.token;
       final response =
           await http.put(Uri.parse("${ImosysConfig.baseUrl}$endpoint"),
+              headers: {
+                "Accept": "application/json",
+                "Authorization": "Bearer $token",
+                "Content-Type": "application/json"
+              },
+              body: body != null ? jsonEncode(body) : {});
+      log("response body---------------");
+      log(response.body);
+      final result = jsonDecode(response.body);
+      if (result["status"] != null && result["status"] == 1) {
+        responseMap = {
+          "status": result["status"] ?? 0,
+          "data": response.body,
+          "msg": result["msg"] ?? ImosysStrings.somethingWentWrong
+        };
+      } else {
+        responseMap = {
+          "status": result["status"] ?? 0,
+          "data": null,
+          "msg": result["msg"] ?? ImosysStrings.somethingWentWrong
+        };
+      }
+      return responseMap;
+    } on SocketException catch (_) {
+      Map<String, dynamic> responseMap = {
+        'status': 0,
+        'data': null,
+        'msg': ImosysStrings.noInternetConnection
+      };
+      return responseMap;
+    } on TimeoutException catch (_) {
+      Map<String, dynamic> responseMap = {
+        'status': 0,
+        'data': null,
+        'msg': ImosysStrings.requestTimedOut
+      };
+      return responseMap;
+    } catch (e) {
+      log(e.toString());
+      return responseMap;
+    }
+  }
+
+    static Future<Map<String, dynamic>> patchWithAuthorizationWithObjectBody(
+      String endpoint, dynamic body) async {
+    Map<String, dynamic> responseMap = {
+      'status': 0,
+      'data': null,
+      'msg': ImosysStrings.somethingWentWrong
+    };
+    try {
+      log("-------$endpoint");
+      //log(body.toString());
+      final token = ImosysConfig.token;
+      final response =
+          await http.patch(Uri.parse("${ImosysConfig.baseUrl}$endpoint"),
               headers: {
                 "Accept": "application/json",
                 "Authorization": "Bearer $token",

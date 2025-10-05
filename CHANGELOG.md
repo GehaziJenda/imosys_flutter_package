@@ -49,3 +49,7 @@
 ## 0.0.13
 
 * Fixed exports
+
+## 0.0.14
+
+* Added patch method in API calls
