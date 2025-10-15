@@ -612,7 +612,95 @@ class ImosysAPI {
       final token = ImosysConfig.token;
       final uri = Uri.parse("${ImosysConfig.baseUrl}$endpoint");
 
-      final request = http.MultipartRequest('POST', uri)
+      final request = http.MultipartRequest('PUT', uri)
+        ..headers.addAll({
+          "Accept": "application/json",
+          "Authorization": "Bearer $token",
+        });
+
+      if (fields != null) {
+        fields.forEach((key, value) {
+          if (value != null) {
+            request.fields[key] = value;
+          }
+        });
+      }
+
+      if (files != null) {
+        files.forEach((key, file) {
+          if (file != null && file.existsSync()) {
+            request.files.add(http.MultipartFile(
+              key,
+              file.readAsBytes().asStream(),
+              file.lengthSync(),
+              filename: file.path.split('/').last,
+              contentType: MediaType('image', 'jpeg'),
+            ));
+          }
+        });
+      }
+
+      final response = await request.send();
+      final responseBody = await response.stream.bytesToString();
+
+      log("response body---------------");
+      log(responseBody);
+
+      final result = jsonDecode(responseBody);
+      if (result["status"] != null && result["status"] == 1) {
+        responseMap = {
+          "status": result["status"] ?? 0,
+          "data": responseBody,
+          "msg": result["msg"] ?? ImosysStrings.somethingWentWrong
+        };
+      } else {
+        responseMap = {
+          "status": result["status"] ?? 0,
+          "data": null,
+          "msg": result["msg"] ?? ImosysStrings.somethingWentWrong
+        };
+      }
+      return responseMap;
+    } on SocketException catch (_) {
+      Map<String, dynamic> responseMap = {
+        'status': 0,
+        'data': null,
+        'msg': ImosysStrings.noInternetConnection
+      };
+      return responseMap;
+    } on TimeoutException catch (_) {
+      Map<String, dynamic> responseMap = {
+        'status': 0,
+        'data': null,
+        'msg': ImosysStrings.requestTimedOut
+      };
+      return responseMap;
+    } catch (e) {
+      log(e.toString());
+      return responseMap;
+    }
+  }
+
+      static Future<Map<String, dynamic>> patchMultipartFileWithAuthorization(
+    String endpoint, {
+    Map<String, String?>? fields,
+    Map<String, File?>? files,
+  }) async {
+    Map<String, dynamic> responseMap = {
+      'status': 0,
+      'data': null,
+      'msg': 'Something went wrong'
+    };
+
+    try {
+      log("-------$endpoint");
+      log("Fields-------$fields");
+      log("Files-------$files");
+
+      final token = ImosysConfig.token;
+      final uri = Uri.parse("${ImosysConfig.baseUrl}$endpoint");
+
+      final request = http.MultipartRequest('PATCH', uri)
         ..headers.addAll({
           "Accept": "application/json",
           "Authorization": "Bearer $token",

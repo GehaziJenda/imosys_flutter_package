@@ -53,3 +53,7 @@
 ## 0.0.14
 
 * Added patch method in API calls
+
+## 0.0.15
+
+* Added patch for multipart API calls
