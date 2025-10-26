@@ -23,6 +23,7 @@ class ImosysButton extends StatelessWidget {
   final double? imageHeight;
   final double? imageWidth;
   final double? iconSize;
+  final TextAlign? textAlign;
   const ImosysButton(
       {super.key,
       required this.text,
@@ -43,6 +44,7 @@ class ImosysButton extends StatelessWidget {
       this.elevation,
       this.verticalPadding,
       this.imageHeight,
+      this.textAlign,
       this.imageWidth, this.iconSize});
 
   @override
@@ -118,6 +120,7 @@ class ImosysButton extends StatelessWidget {
                       fontFamily:
                           textFontFamily ?? config.primaryButtonTextFontFamily,
                       fontWeight: textFontWeight,
+                      align: textAlign,
                       color: textColor ?? config.primaryButtonTextColor)
                   : icon == null
                       ? Row(
@@ -137,6 +140,7 @@ class ImosysButton extends StatelessWidget {
                                 fontFamily: textFontFamily ??
                                     config.primaryButtonTextFontFamily,
                                 fontWeight: textFontWeight,
+                                align: textAlign,
                                 color:
                                     textColor ?? config.primaryButtonTextColor)
                           ],
@@ -158,6 +162,7 @@ class ImosysButton extends StatelessWidget {
                               fontFamily: textFontFamily ??
                                   config.primaryButtonTextFontFamily,
                               fontWeight: textFontWeight,
+                              align: textAlign,
                               color: textColor ?? config.primaryButtonTextColor,
                             ),
                           ],
@@ -182,6 +187,7 @@ class ImosysButton extends StatelessWidget {
                         fontFamily: textFontFamily ??
                             config.primaryButtonTextFontFamily,
                         fontWeight: textFontWeight,
+                        align: textAlign,
                         color: textColor ?? config.primaryButtonTextColor,
                       )
                     : icon == null
@@ -198,6 +204,7 @@ class ImosysButton extends StatelessWidget {
                                 fontFamily: textFontFamily ??
                                     config.primaryButtonTextFontFamily,
                                 fontWeight: textFontWeight,
+                                align: textAlign,
                                 color: textColor ??
                                     ImosysAppWrapper.of(context)
                                         .primaryButtonTextColor,
@@ -221,6 +228,7 @@ class ImosysButton extends StatelessWidget {
                                 fontFamily: textFontFamily ??
                                     config.primaryButtonTextFontFamily,
                                 fontWeight: textFontWeight,
+                                align: textAlign,
                                 color:
                                     textColor ?? config.primaryButtonTextColor,
                               ),

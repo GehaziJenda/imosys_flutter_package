@@ -57,3 +57,7 @@
 ## 0.0.15
 
 * Added patch for multipart API calls
+
+## 0.0.16
+
+* Added text alignment for buttons
