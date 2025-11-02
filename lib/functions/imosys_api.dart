@@ -281,7 +281,7 @@ class ImosysAPI {
     }
   }
 
-    static Future<Map<String, dynamic>> patchWithAuthorization(
+  static Future<Map<String, dynamic>> patchWithAuthorization(
       String endpoint, Map<String, dynamic>? body) async {
     Map<String, dynamic> responseMap = {
       'status': 0,
@@ -449,7 +449,7 @@ class ImosysAPI {
     }
   }
 
-    static Future<Map<String, dynamic>> patchWithAuthorizationWithObjectBody(
+  static Future<Map<String, dynamic>> patchWithAuthorizationWithObjectBody(
       String endpoint, dynamic body) async {
     Map<String, dynamic> responseMap = {
       'status': 0,
@@ -593,7 +593,7 @@ class ImosysAPI {
     }
   }
 
-    static Future<Map<String, dynamic>> putMultipartFileWithAuthorization(
+  static Future<Map<String, dynamic>> putMultipartFileWithAuthorization(
     String endpoint, {
     Map<String, String?>? fields,
     Map<String, File?>? files,
@@ -681,7 +681,7 @@ class ImosysAPI {
     }
   }
 
-      static Future<Map<String, dynamic>> patchMultipartFileWithAuthorization(
+  static Future<Map<String, dynamic>> patchMultipartFileWithAuthorization(
     String endpoint, {
     Map<String, String?>? fields,
     Map<String, File?>? files,
@@ -739,6 +739,60 @@ class ImosysAPI {
         responseMap = {
           "status": result["status"] ?? 0,
           "data": responseBody,
+          "msg": result["msg"] ?? ImosysStrings.somethingWentWrong
+        };
+      } else {
+        responseMap = {
+          "status": result["status"] ?? 0,
+          "data": null,
+          "msg": result["msg"] ?? ImosysStrings.somethingWentWrong
+        };
+      }
+      return responseMap;
+    } on SocketException catch (_) {
+      Map<String, dynamic> responseMap = {
+        'status': 0,
+        'data': null,
+        'msg': ImosysStrings.noInternetConnection
+      };
+      return responseMap;
+    } on TimeoutException catch (_) {
+      Map<String, dynamic> responseMap = {
+        'status': 0,
+        'data': null,
+        'msg': ImosysStrings.requestTimedOut
+      };
+      return responseMap;
+    } catch (e) {
+      log(e.toString());
+      return responseMap;
+    }
+  }
+
+  static Future<Map<String, dynamic>> deleteWithAuthorization(
+      String endpoint) async {
+    Map<String, dynamic> responseMap = {
+      'status': 0,
+      'data': null,
+      'msg': ImosysStrings.somethingWentWrong
+    };
+    try {
+      log("-------$endpoint");
+      //log(body.toString());
+      final token = ImosysConfig.token;
+      final response = await http
+          .delete(Uri.parse("${ImosysConfig.baseUrl}$endpoint"), headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer $token",
+        "Content-Type": "application/json"
+      });
+      log("response body---------------");
+      log(response.body);
+      final result = jsonDecode(response.body);
+      if (result["status"] != null && result["status"] == 1) {
+        responseMap = {
+          "status": result["status"] ?? 0,
+          "data": response.body,
           "msg": result["msg"] ?? ImosysStrings.somethingWentWrong
         };
       } else {

@@ -61,3 +61,7 @@
 ## 0.0.16
 
 * Added text alignment for buttons
+
+## 0.0.17
+
+* Added delete with Authorization
