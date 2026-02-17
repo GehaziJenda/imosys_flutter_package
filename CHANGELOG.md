@@ -65,3 +65,7 @@
 ## 0.0.17
 
 * Added delete with Authorization
+
+## 0.0.18
+
+* Added ability to turn off logging
