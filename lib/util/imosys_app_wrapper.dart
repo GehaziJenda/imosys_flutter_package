@@ -1,5 +1,47 @@
 import 'package:flutter/material.dart';
 
+enum ImosysSpacingPreset { xs, sm, md, lg, xl, xxl }
+
+class ImosysSemanticColors {
+  final Color success;
+  final Color warning;
+  final Color error;
+  final Color info;
+  final Color background;
+  final Color surface;
+  final Color onSurface;
+  final Color onPrimary;
+
+  const ImosysSemanticColors({
+    this.success = const Color(0xFF16A34A),
+    this.warning = const Color(0xFFF59E0B),
+    this.error = const Color(0xFFDC2626),
+    this.info = const Color(0xFF2563EB),
+    this.background = const Color(0xFFFFFFFF),
+    this.surface = const Color(0xFFF8FAFC),
+    this.onSurface = const Color(0xFF111827),
+    this.onPrimary = const Color(0xFFFFFFFF),
+  });
+}
+
+class ImosysSpacingScale {
+  final double xs;
+  final double sm;
+  final double md;
+  final double lg;
+  final double xl;
+  final double xxl;
+
+  const ImosysSpacingScale({
+    this.xs = 4,
+    this.sm = 8,
+    this.md = 12,
+    this.lg = 16,
+    this.xl = 24,
+    this.xxl = 32,
+  });
+}
+
 /// A class to hold default configuration values
 class ImosysConfig {
   static String baseUrl = '';
@@ -42,6 +84,11 @@ class ImosysConfig {
   final TextStyle? bodyTextStyle;
   final TextStyle? smallTextStyle;
   final TextStyle? extraSmallTextStyle;
+  // Theming
+  final ThemeMode themeMode;
+  final bool isDarkMode;
+  final ImosysSemanticColors semanticColors;
+  final ImosysSpacingScale spacing;
 
   ImosysConfig({
     required this.defaultFontSize,
@@ -76,7 +123,28 @@ class ImosysConfig {
     this.bodyTextStyle,
     this.smallTextStyle,
     this.extraSmallTextStyle,
+    this.themeMode = ThemeMode.system,
+    this.isDarkMode = false,
+    this.semanticColors = const ImosysSemanticColors(),
+    this.spacing = const ImosysSpacingScale(),
   });
+
+  double space(ImosysSpacingPreset preset) {
+    switch (preset) {
+      case ImosysSpacingPreset.xs:
+        return spacing.xs;
+      case ImosysSpacingPreset.sm:
+        return spacing.sm;
+      case ImosysSpacingPreset.md:
+        return spacing.md;
+      case ImosysSpacingPreset.lg:
+        return spacing.lg;
+      case ImosysSpacingPreset.xl:
+        return spacing.xl;
+      case ImosysSpacingPreset.xxl:
+        return spacing.xxl;
+    }
+  }
 
   /// Method to set base URL
   static void setBaseUrl(String url) {

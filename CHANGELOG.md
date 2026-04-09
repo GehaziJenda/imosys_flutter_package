@@ -1,3 +1,12 @@
+## 0.0.19
+
+* Added widgets: `ImosysLoader`, `ImosysSnackbar`, `ImosysCard`, `ImosysBadge`, and `ImosysDivider`
+* Added exports for all newly introduced widgets in `imosys_flutter_package.dart`
+* Added theming primitives in `ImosysConfig`: `themeMode`, `isDarkMode`, `ImosysSemanticColors`, `ImosysSpacingScale`, `ImosysSpacingPreset`, and `space(...)`
+* Updated defaults in `ImosysCard`, `ImosysBadge`, `ImosysDivider`, `ImosysLoader`, and `ImosysSnackbar` to use semantic colors, spacing presets, and dark mode-aware fallbacks
+* Updated `ImosysButton`, `ImosysTextField`, and `ImosysDialogs` to use semantic color and dark mode-aware fallback behavior while preserving existing overrides
+* Fixed `ImosysTextWidget` shadow logic so `hasShadow: false` correctly disables shadow
+
 ## 0.0.1
 
 * This is the initial release of the imosys flutter project
@@ -69,7 +78,3 @@
 ## 0.0.18
 
 * Added ability to turn off logging
-
-## 0.0.19
-
-* Fixed text shadow bug

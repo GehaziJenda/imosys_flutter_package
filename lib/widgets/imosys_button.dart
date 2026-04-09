@@ -50,6 +50,18 @@ class ImosysButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final config = ImosysAppWrapper.of(context);
+    final isDarkTheme = config.themeMode == ThemeMode.dark ||
+        (config.themeMode == ThemeMode.system &&
+            MediaQuery.platformBrightnessOf(context) == Brightness.dark) ||
+        config.isDarkMode;
+    final resolvedBackgroundColor =
+        color ?? config.primaryButtonBackgroundColor ?? config.semanticColors.info;
+    final resolvedBorderColor = borderColor ??
+        config.defaultBorderColor ??
+        config.semanticColors.onSurface.withValues(alpha: isDarkTheme ? 0.28 : 0.16);
+    final resolvedTextColor =
+        textColor ?? config.primaryButtonTextColor ?? config.semanticColors.onPrimary;
+
     return (elevation != null && elevation! > 0) ||
             (config.primaryButtonHasElevation != null &&
                 config.primaryButtonHasElevation!)
@@ -58,14 +70,12 @@ class ImosysButton extends StatelessWidget {
               onTap.call();
             },
             style: TextButton.styleFrom(
-              backgroundColor: color ?? config.primaryButtonBackgroundColor,
+              backgroundColor: resolvedBackgroundColor,
               elevation: elevation ?? 1,
               shape: RoundedRectangleBorder(
                 side: hasBorder != null && hasBorder!
                     ? BorderSide(
-                        color: borderColor ??
-                            config.defaultBorderColor ??
-                            config.primaryColor,
+                        color: resolvedBorderColor,
                         width: borderWidth ?? 1,
                       )
                     : BorderSide.none,
@@ -76,21 +86,19 @@ class ImosysButton extends StatelessWidget {
                 ),
               ),
             ),
-            child: buttonChild(config, context),
+            child: buttonChild(config, context, resolvedTextColor),
           )
         : TextButton(
             onPressed: () {
               onTap.call();
             },
             style: TextButton.styleFrom(
-              backgroundColor: color ?? config.primaryButtonBackgroundColor,
+              backgroundColor: resolvedBackgroundColor,
               elevation: elevation,
               shape: RoundedRectangleBorder(
                 side: hasBorder != null && hasBorder!
                     ? BorderSide(
-                        color: borderColor ??
-                            config.defaultBorderColor ??
-                            config.primaryColor,
+                        color: resolvedBorderColor,
                         width: borderWidth ?? 1,
                       )
                     : BorderSide.none,
@@ -101,11 +109,15 @@ class ImosysButton extends StatelessWidget {
                 ),
               ),
             ),
-            child: buttonChild(config, context),
+            child: buttonChild(config, context, resolvedTextColor),
           );
   }
 
-  Widget buttonChild(ImosysConfig config, BuildContext context) {
+  Widget buttonChild(
+    ImosysConfig config,
+    BuildContext context,
+    Color resolvedTextColor,
+  ) {
     return width == null && config.primaryButtonDefaultWidth == null
         ? Padding(
             padding: EdgeInsets.symmetric(
@@ -121,7 +133,7 @@ class ImosysButton extends StatelessWidget {
                           textFontFamily ?? config.primaryButtonTextFontFamily,
                       fontWeight: textFontWeight,
                       align: textAlign,
-                      color: textColor ?? config.primaryButtonTextColor)
+                      color: resolvedTextColor)
                   : icon == null
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -141,8 +153,7 @@ class ImosysButton extends StatelessWidget {
                                     config.primaryButtonTextFontFamily,
                                 fontWeight: textFontWeight,
                                 align: textAlign,
-                                color:
-                                    textColor ?? config.primaryButtonTextColor)
+                                color: resolvedTextColor)
                           ],
                         )
                       : Row(
@@ -163,7 +174,7 @@ class ImosysButton extends StatelessWidget {
                                   config.primaryButtonTextFontFamily,
                               fontWeight: textFontWeight,
                               align: textAlign,
-                              color: textColor ?? config.primaryButtonTextColor,
+                              color: resolvedTextColor,
                             ),
                           ],
                         ),
@@ -188,7 +199,7 @@ class ImosysButton extends StatelessWidget {
                             config.primaryButtonTextFontFamily,
                         fontWeight: textFontWeight,
                         align: textAlign,
-                        color: textColor ?? config.primaryButtonTextColor,
+                        color: resolvedTextColor,
                       )
                     : icon == null
                         ? Row(
@@ -205,9 +216,7 @@ class ImosysButton extends StatelessWidget {
                                     config.primaryButtonTextFontFamily,
                                 fontWeight: textFontWeight,
                                 align: textAlign,
-                                color: textColor ??
-                                    ImosysAppWrapper.of(context)
-                                        .primaryButtonTextColor,
+                                color: resolvedTextColor,
                               )
                             ],
                           )
@@ -229,8 +238,7 @@ class ImosysButton extends StatelessWidget {
                                     config.primaryButtonTextFontFamily,
                                 fontWeight: textFontWeight,
                                 align: textAlign,
-                                color:
-                                    textColor ?? config.primaryButtonTextColor,
+                                color: resolvedTextColor,
                               ),
                             ],
                           ),

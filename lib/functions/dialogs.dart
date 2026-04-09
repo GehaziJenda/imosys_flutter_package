@@ -5,6 +5,13 @@ import 'package:imosys_flutter_package/constants/imosys_strings.dart';
 import 'package:imosys_flutter_package/imosys_flutter_package.dart';
 
 class ImosysDialogs {
+  static bool _isDark(ImosysConfig config, BuildContext context) {
+    return config.themeMode == ThemeMode.dark ||
+        (config.themeMode == ThemeMode.system &&
+            MediaQuery.platformBrightnessOf(context) == Brightness.dark) ||
+        config.isDarkMode;
+  }
+
   //for dialogs with one action
   static dialogWithOneOption({
     required BuildContext buildContext,
@@ -14,6 +21,16 @@ class ImosysDialogs {
     Color? dialogMessageColor,
     Color? dialogButtonColor,
   }) {
+    final config = ImosysAppWrapper.of(buildContext);
+    final isDarkTheme = _isDark(config, buildContext);
+    final resolvedMessageColor = dialogMessageColor ??
+        config.dialogMessageColor ??
+        (isDarkTheme
+            ? config.semanticColors.onSurface
+            : config.defaultFontColor);
+    final resolvedButtonColor =
+        dialogButtonColor ?? config.dialogButtonColor ?? config.semanticColors.info;
+
     return Platform.isAndroid
         ? showDialog(
             context: buildContext,
@@ -22,15 +39,13 @@ class ImosysDialogs {
               return AlertDialog(
                 content: ImosysTextWidget(
                   text: dialogMessage,
-                  color: dialogMessageColor ??
-                      ImosysAppWrapper.of(context).dialogMessageColor,
+                  color: resolvedMessageColor,
                 ),
                 actions: <Widget>[
                   TextButton(
                     child: ImosysTextWidget(
                       text: buttonText ?? ImosysStrings.ok,
-                      color: dialogButtonColor ??
-                          ImosysAppWrapper.of(context).dialogButtonColor,
+                      color: resolvedButtonColor,
                     ),
                     onPressed: () {
                       function.call();
@@ -46,8 +61,7 @@ class ImosysDialogs {
             builder: (BuildContext context) => CupertinoAlertDialog(
               content: ImosysTextWidget(
                 text: dialogMessage,
-                color: dialogMessageColor ??
-                    ImosysAppWrapper.of(context).dialogMessageColor,
+                color: resolvedMessageColor,
               ),
               actions: <CupertinoDialogAction>[
                 CupertinoDialogAction(
@@ -57,8 +71,7 @@ class ImosysDialogs {
                   },
                   child: ImosysTextWidget(
                     text: buttonText ?? ImosysStrings.ok,
-                    color: dialogButtonColor ??
-                        ImosysAppWrapper.of(context).dialogButtonColor,
+                    color: resolvedButtonColor,
                   ),
                 ),
               ],
@@ -76,6 +89,16 @@ class ImosysDialogs {
     Color? dialogMessageColor,
     Color? dialogButtonColor,
   }) {
+    final config = ImosysAppWrapper.of(buildContext);
+    final isDarkTheme = _isDark(config, buildContext);
+    final resolvedMessageColor = dialogMessageColor ??
+        config.dialogMessageColor ??
+        (isDarkTheme
+            ? config.semanticColors.onSurface
+            : config.defaultFontColor);
+    final resolvedButtonColor =
+        dialogButtonColor ?? config.dialogButtonColor ?? config.semanticColors.info;
+
     return Platform.isAndroid
         ? showDialog(
             context: buildContext,
@@ -83,15 +106,13 @@ class ImosysDialogs {
               return AlertDialog(
                 content: ImosysTextWidget(
                   text: dialogMessage,
-                  color: dialogMessageColor ??
-                      ImosysAppWrapper.of(context).dialogMessageColor,
+                  color: resolvedMessageColor,
                 ),
                 actions: <Widget>[
                   TextButton(
                     child: ImosysTextWidget(
                       text: yesButtonText ?? ImosysStrings.yes,
-                      color: dialogButtonColor ??
-                          ImosysAppWrapper.of(context).dialogButtonColor,
+                      color: resolvedButtonColor,
                     ),
                     onPressed: () {
                       yesFunction.call();
@@ -100,8 +121,7 @@ class ImosysDialogs {
                   TextButton(
                     child: ImosysTextWidget(
                       text: noButtonText ?? ImosysStrings.no,
-                      color: dialogButtonColor ??
-                          ImosysAppWrapper.of(context).dialogButtonColor,
+                      color: resolvedButtonColor,
                     ),
                     onPressed: () {
                       noFunction.call();
@@ -116,8 +136,7 @@ class ImosysDialogs {
             builder: (BuildContext context) => CupertinoAlertDialog(
               content: ImosysTextWidget(
                 text: dialogMessage,
-                color: dialogMessageColor ??
-                    ImosysAppWrapper.of(context).dialogMessageColor,
+                color: resolvedMessageColor,
               ),
               actions: <CupertinoDialogAction>[
                 CupertinoDialogAction(
@@ -127,8 +146,7 @@ class ImosysDialogs {
                   child: ImosysTextWidget(
                     text: noButtonText ?? ImosysStrings.no,
                     size: 16,
-                    color: dialogButtonColor ??
-                        ImosysAppWrapper.of(context).dialogButtonColor,
+                    color: resolvedButtonColor,
                   ),
                 ),
                 CupertinoDialogAction(
@@ -139,8 +157,7 @@ class ImosysDialogs {
                   child: ImosysTextWidget(
                     text: yesButtonText ?? ImosysStrings.yes,
                     size: 16,
-                    color: dialogButtonColor ??
-                        ImosysAppWrapper.of(context).dialogButtonColor,
+                    color: resolvedButtonColor,
                   ),
                 ),
               ],
@@ -150,6 +167,10 @@ class ImosysDialogs {
 
   static loading(
       {required BuildContext context, Color? circularProgressColor}) {
+    final config = ImosysAppWrapper.of(context);
+    final resolvedProgressColor =
+        circularProgressColor ?? config.circularProgressColor ?? config.semanticColors.info;
+
     return Platform.isAndroid
         ? showDialog(
             barrierDismissible: false,
@@ -164,10 +185,7 @@ class ImosysDialogs {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       CircularProgressIndicator(
-                        color: circularProgressColor ??
-                            ImosysAppWrapper.of(context)
-                                .circularProgressColor ??
-                            ImosysAppWrapper.of(context).primaryColor,
+                        color: resolvedProgressColor,
                       ),
                     ],
                   ),
@@ -177,9 +195,7 @@ class ImosysDialogs {
         : showCupertinoDialog(
             context: context,
             builder: (BuildContext context) => CupertinoActivityIndicator(
-              color: circularProgressColor ??
-                  ImosysAppWrapper.of(context).circularProgressColor ??
-                  ImosysAppWrapper.of(context).primaryColor,
+              color: resolvedProgressColor,
               radius: 20,
             ),
           );
@@ -191,6 +207,16 @@ class ImosysDialogs {
     Color? circularProgressColor,
     Color? dialogMessageColor,
   }) {
+    final config = ImosysAppWrapper.of(context);
+    final isDarkTheme = _isDark(config, context);
+    final resolvedProgressColor =
+        circularProgressColor ?? config.circularProgressColor ?? config.semanticColors.info;
+    final resolvedMessageColor = dialogMessageColor ??
+        config.dialogMessageColor ??
+        (isDarkTheme
+            ? config.semanticColors.onSurface
+            : config.defaultFontColor);
+
     return Platform.isAndroid
         ? showDialog(
             barrierDismissible: false,
@@ -202,9 +228,7 @@ class ImosysDialogs {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircularProgressIndicator(
-                      color: circularProgressColor ??
-                          ImosysAppWrapper.of(context).circularProgressColor ??
-                          ImosysAppWrapper.of(context).primaryColor,
+                      color: resolvedProgressColor,
                     ),
                     const SizedBox(
                       height: 5,
@@ -212,8 +236,7 @@ class ImosysDialogs {
                     ImosysTextWidget(
                       text: message,
                       size: 16,
-                      color: dialogMessageColor ??
-                          ImosysAppWrapper.of(context).dialogMessageColor,
+                      color: resolvedMessageColor,
                     )
                   ],
                 ),
@@ -226,9 +249,7 @@ class ImosysDialogs {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CupertinoActivityIndicator(
-                    color: circularProgressColor ??
-                        ImosysAppWrapper.of(context).circularProgressColor ??
-                        ImosysAppWrapper.of(context).primaryColor,
+                    color: resolvedProgressColor,
                     radius: 20,
                   ),
                   const SizedBox(
@@ -237,8 +258,7 @@ class ImosysDialogs {
                   ImosysTextWidget(
                     text: message,
                     size: 16,
-                    color: dialogMessageColor ??
-                        ImosysAppWrapper.of(context).dialogMessageColor,
+                    color: resolvedMessageColor,
                   )
                 ],
               ),
@@ -250,19 +270,19 @@ class ImosysDialogs {
     required BuildContext context,
     Color? circularProgressColor,
   }) {
+    final config = ImosysAppWrapper.of(context);
+    final resolvedProgressColor =
+        circularProgressColor ?? config.circularProgressColor ?? config.semanticColors.info;
+
     return Platform.isAndroid
         ? Center(
             child: CircularProgressIndicator(
-              color: circularProgressColor ??
-                  ImosysAppWrapper.of(context).circularProgressColor ??
-                  ImosysAppWrapper.of(context).primaryColor,
+              color: resolvedProgressColor,
             ),
           )
         : Center(
             child: CupertinoActivityIndicator(
-              color: circularProgressColor ??
-                  ImosysAppWrapper.of(context).circularProgressColor ??
-                  ImosysAppWrapper.of(context).primaryColor,
+              color: resolvedProgressColor,
               radius: 20,
             ),
           );

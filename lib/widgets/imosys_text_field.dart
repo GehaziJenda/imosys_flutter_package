@@ -90,13 +90,21 @@ class ImosysTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     //configuration
     final config = ImosysAppWrapper.of(context);
+    final isDarkTheme = config.themeMode == ThemeMode.dark ||
+        (config.themeMode == ThemeMode.system &&
+            MediaQuery.platformBrightnessOf(context) == Brightness.dark) ||
+        config.isDarkMode;
+    final semanticSurface =
+        isDarkTheme ? config.semanticColors.surface : config.semanticColors.background;
+    final semanticOnSurface = config.semanticColors.onSurface;
+
     return SizedBox(
       width: width ?? MediaQuery.of(context).size.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           items == null
-              ? textField(config)
+              ? textField(config, semanticSurface, semanticOnSurface, isDarkTheme)
               : validator != null
                   ? DropdownButtonFormField(
                       value: controller.text,
@@ -112,7 +120,12 @@ class ImosysTextField extends StatelessWidget {
                           ),
                         );
                       }).toList(),
-                      decoration: _inputDecoration(config),
+                      decoration: _inputDecoration(
+                        config,
+                        semanticSurface,
+                        semanticOnSurface,
+                        isDarkTheme,
+                      ),
                     )
                   : DropdownButton2(
                       customButton: containerTextField(config),
@@ -146,7 +159,12 @@ class ImosysTextField extends StatelessWidget {
     );
   }
 
-  Widget textField(ImosysConfig config) {
+  Widget textField(
+    ImosysConfig config,
+    Color semanticSurface,
+    Color semanticOnSurface,
+    bool isDarkTheme,
+  ) {
     return validator != null
         ? TextFormField(
             validator: validator,
@@ -173,7 +191,12 @@ class ImosysTextField extends StatelessWidget {
                 fontSize: fontSize ?? config.defaultFontSize,
                 color: fontColor ?? config.defaultFontColor,
                 fontWeight: fontWeight),
-            decoration: _inputDecoration(config),
+            decoration: _inputDecoration(
+              config,
+              semanticSurface,
+              semanticOnSurface,
+              isDarkTheme,
+            ),
             onFieldSubmitted: (value) {
               onSubmitted?.call(value);
             },
@@ -204,7 +227,12 @@ class ImosysTextField extends StatelessWidget {
                 fontSize: fontSize ?? config.defaultFontSize,
                 color: fontColor ?? config.defaultFontColor,
                 fontWeight: fontWeight),
-            decoration: _inputDecoration(config),
+            decoration: _inputDecoration(
+              config,
+              semanticSurface,
+              semanticOnSurface,
+              isDarkTheme,
+            ),
             onSubmitted: (value) {
               onSubmitted?.call(value);
             },
@@ -257,7 +285,20 @@ class ImosysTextField extends StatelessWidget {
     );
   }
 
-  InputDecoration _inputDecoration(ImosysConfig config) {
+  InputDecoration _inputDecoration(
+    ImosysConfig config,
+    Color semanticSurface,
+    Color semanticOnSurface,
+    bool isDarkTheme,
+  ) {
+    final resolvedHintColor = hintFontColor ??
+        config.defaultHintColor ??
+        semanticOnSurface.withValues(alpha: isDarkTheme ? 0.65 : 0.55);
+    final resolvedBorderColor = borderColor ??
+        config.defaultBorderColor ??
+        semanticOnSurface.withValues(alpha: isDarkTheme ? 0.30 : 0.20);
+    final resolvedFillColor = fillColor ?? config.defaultTextFieldFillColor ?? semanticSurface;
+
     return InputDecoration(
       counterText: "",
       filled: hasFill || config.defaultTextFieldIsFilled,
@@ -286,12 +327,11 @@ class ImosysTextField extends StatelessWidget {
       hintStyle: TextStyle(
         fontFamily: hintFontFamily ?? fontFamily ?? config.defaultFontFamily,
         fontSize: hintFontSize ?? fontSize ?? config.defaultFontSize,
-        color:
-            hintFontColor ?? config.defaultHintColor ?? config.defaultFontColor,
+        color: resolvedHintColor,
         fontWeight: hintFontWeight ?? fontWeight,
       ),
       fillColor: hasFill || config.defaultTextFieldIsFilled
-          ? fillColor ?? config.defaultTextFieldFillColor ?? Colors.white
+          ? resolvedFillColor
           : null,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.all(
@@ -300,9 +340,7 @@ class ImosysTextField extends StatelessWidget {
         borderSide: hasBorder || config.defaultTextFieldHasBorder
             ? BorderSide(
                 width: 1,
-                color: borderColor ??
-                    config.defaultBorderColor ??
-                    config.primaryColor,
+                color: resolvedBorderColor,
               )
             : BorderSide.none,
       ),
@@ -315,9 +353,7 @@ class ImosysTextField extends StatelessWidget {
         borderSide: hasBorder || config.defaultTextFieldHasBorder
             ? BorderSide(
                 width: 1,
-                color: borderColor ??
-                    config.defaultBorderColor ??
-                    config.primaryColor,
+                color: resolvedBorderColor,
               )
             : BorderSide.none,
       ),
