@@ -58,7 +58,7 @@ class ImosysTextWidget extends StatelessWidget {
         color: color ?? config.defaultFontColor,
         letterSpacing: letterSpacing,
         wordSpacing: wordSpacing,
-        shadows: hasShadow != null
+        shadows: hasShadow == true
                 ? [
                     Shadow(
                       color:
