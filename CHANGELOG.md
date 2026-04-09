@@ -69,3 +69,7 @@
 ## 0.0.18
 
 * Added ability to turn off logging
+
+## 0.0.19
+
+* Fixed text shadow bug
